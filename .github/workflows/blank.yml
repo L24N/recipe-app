@@ -1,0 +1,150 @@
+namespace RecipeApp
+{
+    class Program
+    {
+        // Class to represent an Ingredient
+        public class Ingredient
+        {
+            public string Name { get; set; }
+            public double Quantity { get; set; }
+            public string Unit { get; set; }
+        }
+
+        // Class to represent a Step
+        public class Step
+        {
+            public string Description { get; set; }
+        }
+
+        static void Main(string[] args)
+        {
+            // Initialize arrays to store ingredients and steps
+            Ingredient[] ingredients = new Ingredient[10];
+            Step[] steps = new Step[10];
+
+            // Initialize variables to store the number of ingredients and steps
+            int numIngredients = 0;
+            int numSteps = 0;
+
+            // Function to add an ingredient
+            void AddIngredient()
+            {
+                Console.WriteLine("Enter and Store Ingredients");
+                Console.Write("Enter the name of the ingredient:");
+                string name = Console.ReadLine();
+
+                Console.Write("Enter the quantity:");
+                double quantity = Convert.ToDouble(Console.ReadLine());
+
+                Console.Write("Enter the unit of measurement:");
+                string unit = Console.ReadLine();
+
+                Console.WriteLine("Capture successful\n");
+
+                // Create a new Ingredient object and add it to the array
+                ingredients[numIngredients] = new Ingredient { Name = name, Quantity = quantity, Unit = unit };
+                numIngredients++;
+            }
+
+            // Function to add a step
+            void AddStep()
+            {
+                Console.WriteLine("Enter the description of the step:");
+                string description = Console.ReadLine();
+                Console.WriteLine("Capture successful\n");
+
+                // Create a new Step object and add it to the array
+                steps[numSteps] = new Step { Description = description };
+                numSteps++;
+            }
+
+            // Function to display the recipe
+            void DisplayRecipe()
+            {
+                Console.WriteLine("Ingredients:");
+                for (int i = 0; i < numIngredients; i++)
+                {
+                    Console.WriteLine($"{ingredients[i].Quantity} {ingredients[i].Unit} of {ingredients[i].Name}\n");
+                }
+
+                Console.WriteLine("Steps:");
+                for (int i = 0; i < numSteps; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {steps[i].Description}");
+                }
+                Console.WriteLine("Thank you for using the recipie book\n");
+            }
+
+            // Function to scale the recipe
+            void ScaleRecipe(double factor)
+            {
+                for (int i = 0; i < numIngredients; i++)
+                {
+                    ingredients[i].Quantity *= factor;
+                }
+            }
+
+            // Function to reset the recipe
+            void ResetRecipe()
+            {
+                for (int i = 0; i < numIngredients; i++)
+                {
+                    ingredients[i].Quantity = 0;
+                }
+                Console.WriteLine("reset successful");
+            }
+
+            // Main menu
+            while (true)
+            {
+                Console.WriteLine("1. Add an ingredient");
+                Console.WriteLine("2. Add a step");
+                Console.WriteLine("3. Display the recipe");
+                Console.WriteLine("4. Scale the recipe");
+                Console.WriteLine("5. Reset the recipe");
+                Console.WriteLine("6. Clear all data");
+                Console.WriteLine("7. Exit");
+
+                int choice = Convert.ToInt32(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        AddIngredient();
+                        break;
+                    case 2:
+                        AddStep();
+                        break;
+                    case 3:
+                        DisplayRecipe();
+                        break;
+
+                    case 4:
+                        Console.WriteLine("Enter the scaling factor:");
+                        double factor = Convert.ToDouble(Console.ReadLine());
+                        ScaleRecipe(factor);
+                        break;
+                    case 5:
+                        ResetRecipe();
+                        break;
+                    case 6:
+                        numIngredients = 0;
+                        numSteps = 0;
+                        break;
+                    case 7:
+                        return;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
+            }
+        }
+    }
+}
+
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
